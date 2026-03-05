@@ -70,4 +70,4 @@ Open `http://localhost:5173` in your browser. The chat interface connects to the
 
 ## License
 
-Private / Practice project.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
