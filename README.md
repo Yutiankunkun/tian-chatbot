@@ -1,6 +1,13 @@
 # Tian Chatbot
 
-An AI-powered chatbot tool designed to help students preparing for Japanese graduate school entrance exams write research plans (研究計画書) more efficiently. The system provides real-time conversational guidance to organize ideas and refine research proposals.
+An AI-powered chatbot tool designed to help students preparing for Japanese graduate school entrance exams write research plans (研究計画書) more efficiently. 
+The system provides real-time conversational guidance to organize ideas and refine research proposals.
+
+## Demo
+
+<p align="center">
+  <img src="demo.gif" width="500"/>
+</p>
 
 ## Overview
 
