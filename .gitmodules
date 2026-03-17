@@ -1,0 +1,7 @@
+[submodule "tian-chatbot-backend"]
+	path = tian-chatbot-backend
+	url = https://github.com/Yutiankunkun/tian-chatbot-backend.git
+
+[submodule "tian-chatbot-frontend"]
+	path = tian-chatbot-frontend
+	url = https://github.com/Yutiankunkun/tian-chatbot-frontend.git
