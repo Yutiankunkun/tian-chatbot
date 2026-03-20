@@ -1,7 +1,6 @@
 # Tian Chatbot
 
-An AI-powered chatbot tool designed to help students preparing for Japanese graduate school entrance exams write research plans (研究計画書) more efficiently. 
-The system provides real-time conversational guidance to organize ideas and refine research proposals.
+An AI-powered chatbot tool designed to help students preparing for Japanese graduate school entrance exams write research plans (研究計画書) more efficiently. The system provides real-time conversational guidance to organize ideas and refine research proposals. The app streams responses with Server-Sent Events (SSE) and uses Alibaba Cloud DashScope (Qwen) via LangChain4j.
 
 ## Demo
 
@@ -9,54 +8,50 @@ The system provides real-time conversational guidance to organize ideas and refi
   <img src="demo.gif" width="500"/>
 </p>
 
-## Overview
-
-Tian Chatbot is a full-stack application consisting of a Vue 3 frontend and a Spring Boot backend. It uses Server-Sent Events (SSE) for streaming AI responses and integrates with Alibaba Cloud's DashScope (Qwen) for natural language processing.
-
-## Tech Stack
+## Stack
 
 | Layer | Technology |
 |-------|------------|
-| Frontend | Vue 3, Vite, Axios, Marked, DOMPurify |
+| Frontend | Vue 3, Vite, Marked, DOMPurify |
 | Backend | Spring Boot 4, Java 21, LangChain4j |
-| AI | DashScope (Qwen) via LangChain4j |
-| Build | Maven (backend), npm (frontend) |
+| AI | DashScope (Qwen) |
+| Packaging | Maven (backend), npm (frontend), Docker Compose |
 
-## Project Structure
+## Repository layout
 
 ```
 tian-chatbot/
-├── tian-chatbot-backend/     # Spring Boot API server
-│   ├── src/main/java/        # Java source code
-│   └── src/main/resources/   # Configuration files
-├── tian-chatbot-frontend/    # Vue 3 SPA
-│   ├── src/
-│   │   ├── components/      # Vue components
-│   │   ├── utils/           # Utilities
-│   │   └── config.js        # API configuration
-│   └── public/
+├── tian-chatbot-backend/   # Spring Boot API
+├── tian-chatbot-frontend/  # Vue 3 SPA
+├── docker-compose.yml      # Run frontend + backend together
+├── DEPLOY.md               # AWS EC2 deployment guide
+├── .env.example            # Template for secrets (copy to `.env`)
 └── README.md
 ```
 
-## Quick Start
-
-### Prerequisites
-
-- **Backend:** JDK 21, Maven 3.6+
-- **Frontend:** Node.js 18+, npm
-
-### 1. Start the Backend
+This repo uses **Git submodules** for `tian-chatbot-backend` and `tian-chatbot-frontend`. Clone with:
 
 ```bash
+git clone --recurse-submodules <repository-url>
+```
+
+## Quick start (local development)
+
+**Prerequisites:** JDK 21 + Maven, Node.js 18+.
+
+### Backend
+
+Set your DashScope API key, then run:
+
+```bash
+export DASHSCOPE_API_KEY=your-key   # PowerShell: $env:DASHSCOPE_API_KEY="your-key"
 cd tian-chatbot-backend
 mvn spring-boot:run
 ```
 
-The API server runs at `http://localhost:8080`.
+API: `http://localhost:8080` — see [Backend README](tian-chatbot-backend/README.md) for details.
 
-> **Note:** Configure your DashScope API key in `application-local.yml` before running. See [Backend README](tian-chatbot-backend/README.md) for details.
-
-### 2. Start the Frontend
+### Frontend
 
 ```bash
 cd tian-chatbot-frontend
@@ -64,16 +59,26 @@ npm install
 npm run dev
 ```
 
-The app is available at `http://localhost:5173`.
+App: `http://localhost:5173` — Vite proxies `/api` to `localhost:8080`.
 
-### 3. Use the Application
+## Docker (recommended for EC2)
 
-Open `http://localhost:5173` in your browser. The chat interface connects to the backend via Vite's proxy (`/api` → `localhost:8080`).
+From the **repository root**:
 
-## Development
+```bash
+cp .env.example .env
+# Edit .env and set DASHSCOPE_API_KEY
 
-- **Backend:** See [tian-chatbot-backend/README.md](tian-chatbot-backend/README.md)
-- **Frontend:** See [tian-chatbot-frontend/README.md](tian-chatbot-frontend/README.md)
+docker compose up -d --build
+```
+
+Open `http://localhost` (port 80). Full EC2 steps: [DEPLOY.md](DEPLOY.md).
+
+## Documentation
+
+- [tian-chatbot-backend/README.md](tian-chatbot-backend/README.md) — API, configuration, build
+- [tian-chatbot-frontend/README.md](tian-chatbot-frontend/README.md) — env vars, Vite proxy, scripts
+- [DEPLOY.md](DEPLOY.md) — Docker Compose on AWS EC2
 
 ## License
 
