@@ -1,0 +1,4 @@
+.env
+.idea
+*.pem
+tian-chatbot-key.pem

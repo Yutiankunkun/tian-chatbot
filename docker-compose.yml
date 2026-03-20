@@ -1,0 +1,23 @@
+services:
+  backend:
+    build:
+      context: ./tian-chatbot-backend
+      dockerfile: Dockerfile
+    environment:
+      DASHSCOPE_API_KEY: ${DASHSCOPE_API_KEY}
+      DASHSCOPE_MODEL_NAME: qwen-plus
+    expose:
+      - "8080"
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./tian-chatbot-frontend
+      dockerfile: Dockerfile
+      args:
+        VITE_API_BASE_URL: /api
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    restart: unless-stopped

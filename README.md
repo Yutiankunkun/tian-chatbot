@@ -61,7 +61,7 @@ npm run dev
 
 App: `http://localhost:5173` — Vite proxies `/api` to `localhost:8080`.
 
-## Docker (recommended for EC2)
+## Docker
 
 From the **repository root**:
 
@@ -72,13 +72,12 @@ cp .env.example .env
 docker compose up -d --build
 ```
 
-Open `http://localhost` (port 80). Full EC2 steps: [DEPLOY.md](DEPLOY.md).
+Open `http://localhost` (port 80).
 
 ## Documentation
 
 - [tian-chatbot-backend/README.md](tian-chatbot-backend/README.md) — API, configuration, build
 - [tian-chatbot-frontend/README.md](tian-chatbot-frontend/README.md) — env vars, Vite proxy, scripts
-- [DEPLOY.md](DEPLOY.md) — Docker Compose on AWS EC2
 
 ## License
 
